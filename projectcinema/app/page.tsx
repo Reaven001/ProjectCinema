@@ -1,95 +1,64 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Link from "next/link";
+
+const movies = [
+  { title: 'Kung Fu Panda', slug: 'kungfupanda' },
+  { title: 'Shrek', slug: 'shrek' },
+  { title: 'Toy Story', slug: 'toystory' },
+];
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+    <div>
+      <div>
+        <section>
+          las mejores peliculas aqui
+        </section>
+      </div>
+      <div>
+        <div>
+          <h3>Search</h3>
+          <input type="text" />
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <div>
+          <h3>Genres</h3>
+          <select name="gener" id="select-gener">
+            <option value="op1">Opcion 1</option>
+            <option value="op1">Opcion 2</option>
+            <option value="op1">Opcion 3</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <section>
+          <h3>Popular</h3>
+          <p>Listado de peliculas</p>
+          <ul>
+            {movies.map((movie) => (
+              <li key={movie.slug}>
+                <Link href={`/movie/${movie.slug}`}>
+                  {movie.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+        <section>
+          <h3>Now Paying</h3>
+          <p>Listado de peliculas</p>
+        </section>
+        <section>
+          <h3>Upcoming</h3>
+          <p>Listado de peliculas</p>
+        </section>
+        <section>
+          <h3>Top Rated</h3>
+          <p>Listado de peliculas</p>
+        </section>
+        <section>
+          <h3>Favorites</h3>
+          <p>Listado de peliculas</p>
+        </section>
+      </div>
     </div>
   );
 }
