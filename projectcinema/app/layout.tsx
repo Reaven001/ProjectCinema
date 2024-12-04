@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 //Components
-import NavbarDesk from "@/components/NavbarDesk";
+import NavbarDesk from "@/components/Navbar/NavbarDesk";
 
 /*const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
