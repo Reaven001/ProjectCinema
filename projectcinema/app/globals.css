@@ -3,6 +3,10 @@ body {
   margin: 0;
 }
 
+.css-g1i5f1-MuiGauge-container text {
+  fill: #ffffff;
+}
+
 /*:root {
   --background: #ffffff;
   --foreground: #171717;
