@@ -6,11 +6,11 @@ import Link from "next/link";
 import Banner from "@/components/Banner/Banner";
 import CardMovie from "@/components/CardMovie/CardMovie";
 import GenresFilter from "@/components/GenresFilter/GenresFilter";
-
+import SearchMovie from "./components/SearchMovie/SearchMovie";
+import ResultSearch from "./components/ResultSearch/ResultSearch";
 //Material UI
 import { Box } from "@mui/material";
 import Grid from '@mui/material/Grid2';
-import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 
@@ -26,23 +26,12 @@ import {
   fetchMoviesTopRated,
 } from "@/redux/slices/movies/thunks";
 
-const options = [
-  { label: 'Action', id: 1 },
-  { label: 'Fiction', id: 2 },
-];
-
-interface Movie {
-  title: string;
-  release_date: string;
-  vote_average: number;
-  poster_path: string;
-}
 
 interface HomeProps { 
   movie: string[];
 }
 
-const Home: React.FC<HomeProps> = ({movie}) => {
+const Home: React.FC<HomeProps> = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() =>{
@@ -52,11 +41,13 @@ const Home: React.FC<HomeProps> = ({movie}) => {
     dispatch(fetchMoviesTopRated());
   }, [dispatch]);
 
+
   const moviesPopular = useAppSelector(state => state.moviesReducer.moviesPopular);
   const loadingMovies = useAppSelector(state => state.moviesReducer.loading);
   const moviesNowPlaying = useAppSelector(state => state.moviesReducer.moviesNowPlaying);
   const moviesUpcoming = useAppSelector(state => state.moviesReducer.moviesUpcoming);
   const moviesTopRated = useAppSelector(state => state.moviesReducer.moviesTopRated);
+  const resultados = useAppSelector (state => state.searchReducer.result);
 
   return (
     <Box>
@@ -64,17 +55,8 @@ const Home: React.FC<HomeProps> = ({movie}) => {
       <Box sx={{padding: '1rem 3rem'}}>
         <Box>
           <Grid container spacing={4}>
-            <Grid size={2}>
-              <div>
-                <Typography variant="h5" component="div" gutterBottom sx={{fontWeight: 'bold'}}>
-                  Search
-                </Typography>
-                <TextField 
-                  id="search-movie" 
-                  label="Keywords" 
-                  variant="filled" 
-                />
-              </div>
+            <Grid size={{ xs: 12, md: 2 }}>
+              <SearchMovie />
               <div>
                 <Typography variant="h5" component="div" gutterBottom sx={{fontWeight: 'bold'}}>
                   Genres
@@ -82,101 +64,111 @@ const Home: React.FC<HomeProps> = ({movie}) => {
                 <GenresFilter />
               </div>
             </Grid>
-            <Grid size={10}>
-              <Box component="section">
-                <Typography variant="h5" component="div" gutterBottom sx={{fontWeight: 'bold'}}>
-                  Popular
-                </Typography>
-                {
-                  loadingMovies ? (
-                    <Box sx={{display: 'flex', justifyContent:'center', padding: '3rem'}}>
-                      <CircularProgress />
+            <Grid size={{ xs: 12, md: 10 }}>
+              {
+                resultados.length > 0 ? (
+                  <Box>
+                    <ResultSearch />
+                  </Box>
+                ) : (
+                  <>
+                    <Box component="section">
+                      <Typography variant="h5" component="div" gutterBottom sx={{fontWeight: 'bold'}}>
+                        Popular
+                      </Typography>
+                      {
+                        loadingMovies ? (
+                          <Box sx={{display: 'flex', justifyContent:'center', padding: '3rem'}}>
+                            <CircularProgress />
+                          </Box>
+                        ):(
+                          <ul className={stylePage['movie-list']}>
+                            {moviesPopular?.map((movie) => (
+                              <li key={movie.id} className={stylePage['movie-card']}>
+                                <Link href={`/movie/${movie.id}`}>
+                                  <CardMovie movie={movie}/>
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        )
+                      }
                     </Box>
-                  ):(
-                    <ul className={stylePage['movie-list']}>
-                      {moviesPopular?.map((movie) => (
-                        <li key={movie.id} className={stylePage['movie-card']}>
-                          <Link href={`/movie/${movie.id}`}>
-                            <CardMovie movie={movie}/>
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  )
-                }
-              </Box>
-              <Box component="section">
-                <Typography variant="h5" component="div" gutterBottom sx={{fontWeight: 'bold'}}>
-                  Now PLaying
-                </Typography>
-                {
-                  loadingMovies ? (
-                    <Box sx={{display: 'flex', justifyContent:'center', padding: '3rem'}}>
-                      <CircularProgress />
+                    <Box component="section">
+                      <Typography variant="h5" component="div" gutterBottom sx={{fontWeight: 'bold'}}>
+                        Now PLaying
+                      </Typography>
+                      {
+                        loadingMovies ? (
+                          <Box sx={{display: 'flex', justifyContent:'center', padding: '3rem'}}>
+                            <CircularProgress />
+                          </Box>
+                        ):(
+                          <ul className={stylePage['movie-list']}>
+                            {moviesNowPlaying?.map((movie) => (
+                              <li key={movie.id} className={stylePage['movie-card']}>
+                                <Link href={`/movie/${movie.id}`}>
+                                  <CardMovie movie={movie}/>
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        )
+                      }
                     </Box>
-                  ):(
-                    <ul className={stylePage['movie-list']}>
-                      {moviesNowPlaying?.map((movie) => (
-                        <li key={movie.id} className={stylePage['movie-card']}>
-                          <Link href={`/movie/${movie.id}`}>
-                            <CardMovie movie={movie}/>
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  )
-                }
-              </Box>
-              <Box component="section">
-                <Typography variant="h5" component="div" gutterBottom sx={{fontWeight: 'bold'}}>
-                  Upcoming
-                </Typography>
-                <ul className={stylePage['movie-list']}>
-                {
-                  loadingMovies ? (
-                    <Box sx={{display: 'flex', justifyContent:'center', padding: '3rem'}}>
-                      <CircularProgress />
+                    <Box component="section">
+                      <Typography variant="h5" component="div" gutterBottom sx={{fontWeight: 'bold'}}>
+                        Upcoming
+                      </Typography>
+                      <ul className={stylePage['movie-list']}>
+                      {
+                        loadingMovies ? (
+                          <Box sx={{display: 'flex', justifyContent:'center', padding: '3rem'}}>
+                            <CircularProgress />
+                          </Box>
+                        ):(
+                          <ul className={stylePage['movie-list']}>
+                            {moviesUpcoming?.map((movie) => (
+                              <li key={movie.id} className={stylePage['movie-card']}>
+                                <Link href={`/movie/${movie.id}`}>
+                                  <CardMovie movie={movie}/>
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        )
+                      }
+                      </ul>
                     </Box>
-                  ):(
-                    <ul className={stylePage['movie-list']}>
-                      {moviesUpcoming?.map((movie) => (
-                        <li key={movie.id} className={stylePage['movie-card']}>
-                          <Link href={`/movie/${movie.id}`}>
-                            <CardMovie movie={movie}/>
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  )
-                }
-                </ul>
-              </Box>
-              <Box component="section">
-                <Typography variant="h5" component="div" gutterBottom sx={{fontWeight: 'bold'}}>
-                  Top Rated
-                </Typography>
-                {
-                  loadingMovies ? (
-                    <Box sx={{display: 'flex', justifyContent:'center', padding: '3rem'}}>
-                      <CircularProgress />
+                    <Box component="section">
+                      <Typography variant="h5" component="div" gutterBottom sx={{fontWeight: 'bold'}}>
+                        Top Rated
+                      </Typography>
+                      {
+                        loadingMovies ? (
+                          <Box sx={{display: 'flex', justifyContent:'center', padding: '3rem'}}>
+                            <CircularProgress />
+                          </Box>
+                        ):(
+                          <ul className={stylePage['movie-list']}>
+                            {moviesTopRated?.map((movie) => (
+                              <li key={movie.id} className={stylePage['movie-card']}>
+                                <Link href={`/movie/${movie.id}`}>
+                                  <CardMovie movie={movie}/>
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        )
+                      }
                     </Box>
-                  ):(
-                    <ul className={stylePage['movie-list']}>
-                      {moviesTopRated?.map((movie) => (
-                        <li key={movie.id} className={stylePage['movie-card']}>
-                          <Link href={`/movie/${movie.id}`}>
-                            <CardMovie movie={movie}/>
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  )
-                }
-              </Box>
-              <Box component="section">
-                <h3>Favorites</h3>
-                <p>Listado de peliculas</p>
-              </Box>
+                    <Box component="section">
+                      <h3>Favorites</h3>
+                      <p>Listado de peliculas</p>
+                    </Box>
+                  </>
+                )
+              }
             </Grid>
           </Grid>
         </Box>
