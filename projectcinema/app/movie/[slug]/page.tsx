@@ -2,13 +2,11 @@
 import React, {useEffect, use, useState} from "react";
 import { Apiurl } from "@/redux/services/tmdb_Api/tmdb_API";
 import { ACCES_TOKEN } from "@/secret/accesToken";
-import Image from "next/image";
 import Link from "next/link";
 
 //Material UI
 import Container from '@mui/material/Container';
 import { Box } from "@mui/material";
-import Grid from '@mui/material/Grid2';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 

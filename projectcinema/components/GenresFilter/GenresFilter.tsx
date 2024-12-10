@@ -5,8 +5,6 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-//Hooks
-import { usePreData } from '@/hooks/usePreData';
 
 import { ACCES_TOKEN } from '@/secret/accesToken';
 

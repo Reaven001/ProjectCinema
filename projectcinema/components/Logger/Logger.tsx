@@ -12,7 +12,6 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import LoginIcon from '@mui/icons-material/Login';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 
 //Hooks
 import useModalLogin from '@/hooks/useModalLogin';

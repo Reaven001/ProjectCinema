@@ -1,23 +1,16 @@
 "use client"
 
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import Link from "next/link";
-import Image from "next/image";
-
-import { Apiurl } from "@/redux/services/tmdb_Api/tmdb_API";
-import { ACCES_TOKEN } from "@/secret/accesToken";
-
 //Components
 import Banner from "@/components/Banner/Banner";
 import CardMovie from "@/components/CardMovie/CardMovie";
 import GenresFilter from "@/components/GenresFilter/GenresFilter";
 
 //Material UI
-import Container from '@mui/material/Container';
 import { Box } from "@mui/material";
 import Grid from '@mui/material/Grid2';
 import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 
@@ -32,9 +25,6 @@ import {
   fetchMoviesUpcoming, 
   fetchMoviesTopRated,
 } from "@/redux/slices/movies/thunks";
-
-//Custom hooks
-import { usePreData } from "@/hooks/usePreData";
 
 const options = [
   { label: 'Action', id: 1 },

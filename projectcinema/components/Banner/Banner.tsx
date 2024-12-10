@@ -3,7 +3,6 @@ import React, {useEffect, useState} from "react";
 import { Apiurl } from "@/redux/services/tmdb_Api/tmdb_API";
 import { ACCES_TOKEN } from "@/secret/accesToken";
 
-import Image from "next/image";
 import { Box } from "@mui/material";
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid2';
@@ -28,13 +27,12 @@ interface BannerProps {
     movie: Movie | null | undefined; 
 }
 
-const Banner: React.FC<BannerProps> = ({movie}) => {
+const Banner: React.FC<BannerProps> = () => {
 
     const [lastMovie, setLastMovie] = useState({});
     const [errorLastMovie, setErrorLastMovie] = useState('');
     const [loadingLastMovie, setLoadingLastMovie] = useState(false);
     const [urlImageBack, setUrlImageBack] = useState('');
-    const [urlPoster, setUrlPoster] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -50,7 +48,6 @@ const Banner: React.FC<BannerProps> = ({movie}) => {
                 const data = await response.json();
                 setLastMovie(data);
                 setUrlImageBack(`https://image.tmdb.org/t/p/original${data?.backdrop_path}`);
-                setUrlPoster(`https://image.tmdb.org/t/p/original${data?.poster_path}`);
                 console.log(data);
             } catch (error){
                 setErrorLastMovie('Error loading movie');

@@ -1,17 +1,11 @@
 import React from 'react';
 
-//Style 
-import cardMovieStyle from './cardMovieStyle.module.css';
-
 //Material
-import { Box } from "@mui/material";
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import Typography from '@mui/material/Typography';
-import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 
 //Components
 import RateMovie from '../RateMovie/RateMovie';
