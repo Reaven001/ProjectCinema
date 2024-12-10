@@ -1,0 +1,91 @@
+/* Contenedor Principal */
+.welcome-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    background: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    color: #333;
+}
+
+/* Encabezado */
+.welcome-container h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+/* Mensaje de Bienvenida */
+.welcome-container p {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    color: #555;
+}
+
+/* Contenedor de Botones */
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 1.5rem;
+}
+
+/* Botón General */
+.welcome-container button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Botón Sign Up */
+.sign-up-btn {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.sign-up-btn:hover {
+    background-color: #218838;
+}
+
+/* Botón Log In */
+.log-in-btn {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.log-in-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Botón Register with Email */
+.email-register-btn {
+    display: block;
+    margin: 0 auto;
+    background-color: #ffc107;
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+.email-register-btn:hover {
+    background-color: #e0a800;
+}
+
+/* Email de Soporte */
+.support-email {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.support-email a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.support-email a:hover {
+    text-decoration: underline;
+}

@@ -9,7 +9,37 @@ import Tooltip from '@mui/material/Tooltip';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import Logout from '@mui/icons-material/Logout';
+import LoginIcon from '@mui/icons-material/Login';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+
+//Hooks
+import useModalLogin from '@/hooks/useModalLogin';
+
+//Styles
+import loggerStyle from './loggerStyle.module.css'
+
+const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 500,
+    bgcolor: "background.paper",
+    borderRadius: "7px",
+    boxShadow: 24,
+    p: 4,
+    "& .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {
+        fontFamily: "Kumbh Sans",
+    },
+    ".css-1ualgfl-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root": {
+        fontFamily: "Kumbh Sans",
+    },
+    maxWidth: "100%",
+    maxHeight: "100%",
+    overflowY: "auto",
+  };
 
 export default function Logger(){
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -20,6 +50,12 @@ export default function Logger(){
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const {
+        handleOpen: hanldeOpenModal, 
+        handleClose: handleCloseModal, 
+        openModal,
+    } = useModalLogin();
 
     return(
         <>
@@ -72,13 +108,32 @@ export default function Logger(){
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-                <MenuItem onClick={handleClose}>
+                <MenuItem onClick={hanldeOpenModal}>
                     <ListItemIcon>
-                        <Logout fontSize="small" />
+                        <LoginIcon fontSize="small" />
                     </ListItemIcon>
-                    Logout
+                    Log In
                 </MenuItem>
             </Menu>
+            <Modal
+                open={openModal}
+                onClose={handleCloseModal}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                <div className={loggerStyle['welcome-container']}>
+                    <h1>Welcome to Quickbet Movies!</h1>
+                    <p>Ready to unlock a universe of cinematic delights? Sign up now and start your journey with us!</p>
+                    <div className={loggerStyle['buttons']}>
+                        <button className={loggerStyle['sign-up-btn']}>Sign up</button>
+                        <button className={loggerStyle['log-in-btn']}>Log In</button>
+                    </div>
+                    <button className={loggerStyle['email-register-btn']}>Register with your Email</button>
+                    <p className={loggerStyle['support-email']}>For support, contact us at <a href="mailto:support@quickbetdmovies.com">support@quickbetdmovies.com</a></p>
+                </div>
+                </Box>
+            </Modal>
         </>        
     )
 }

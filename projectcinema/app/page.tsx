@@ -1,10 +1,16 @@
 "use client"
 
+import React, {useEffect, useState} from "react";
 import Link from "next/link";
 import Image from "next/image";
 
+import { Apiurl } from "@/redux/services/tmdb_Api/tmdb_API";
+import { ACCES_TOKEN } from "@/secret/accesToken";
+
 //Components
 import Banner from "@/components/Banner/Banner";
+import CardMovie from "@/components/CardMovie/CardMovie";
+import GenresFilter from "@/components/GenresFilter/GenresFilter";
 
 //Material UI
 import Container from '@mui/material/Container';
@@ -12,31 +18,67 @@ import { Box } from "@mui/material";
 import Grid from '@mui/material/Grid2';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import Typography from '@mui/material/Typography';
+import CircularProgress from '@mui/material/CircularProgress';
 
 //style
 import stylePage from './page.module.css';
 
-const movies = [
-  { title: 'Kung Fu Panda', slug: 'kungfupanda' },
-  { title: 'Shrek', slug: 'shrek' },
-  { title: 'Toy Story', slug: 'toystory' },
-];
+//Redux
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { 
+  fetchMoviesPopular,
+  fetchMoviesNowPlaying, 
+  fetchMoviesUpcoming, 
+  fetchMoviesTopRated,
+} from "@/redux/slices/movies/thunks";
+
+//Custom hooks
+import { usePreData } from "@/hooks/usePreData";
 
 const options = [
   { label: 'Action', id: 1 },
   { label: 'Fiction', id: 2 },
 ];
 
-export default function Home() {
+interface Movie {
+  title: string;
+  release_date: string;
+  vote_average: number;
+  poster_path: string;
+}
+
+interface HomeProps { 
+  movie: string[];
+}
+
+const Home: React.FC<HomeProps> = ({movie}) => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() =>{
+    dispatch(fetchMoviesPopular());
+    dispatch(fetchMoviesNowPlaying());
+    dispatch(fetchMoviesUpcoming());
+    dispatch(fetchMoviesTopRated());
+  }, [dispatch]);
+
+  const moviesPopular = useAppSelector(state => state.moviesReducer.moviesPopular);
+  const loadingMovies = useAppSelector(state => state.moviesReducer.loading);
+  const moviesNowPlaying = useAppSelector(state => state.moviesReducer.moviesNowPlaying);
+  const moviesUpcoming = useAppSelector(state => state.moviesReducer.moviesUpcoming);
+  const moviesTopRated = useAppSelector(state => state.moviesReducer.moviesTopRated);
+
   return (
     <Box>
       <Banner />
-      <Container>
+      <Box sx={{padding: '1rem 3rem'}}>
         <Box>
           <Grid container spacing={4}>
-            <Box>
+            <Grid size={2}>
               <div>
-                <h3>Search</h3>
+                <Typography variant="h5" component="div" gutterBottom sx={{fontWeight: 'bold'}}>
+                  Search
+                </Typography>
                 <TextField 
                   id="search-movie" 
                   label="Keywords" 
@@ -44,48 +86,113 @@ export default function Home() {
                 />
               </div>
               <div>
-                <h3>Genres</h3>
-                <Autocomplete
-                  disablePortal
-                  options={options}
-                  renderInput={(params) => <TextField {...params} label="Genres" />}
-                />
+                <Typography variant="h5" component="div" gutterBottom sx={{fontWeight: 'bold'}}>
+                  Genres
+                </Typography>
+                <GenresFilter />
               </div>
-            </Box>
-            <Box>
+            </Grid>
+            <Grid size={10}>
               <Box component="section">
-                <h3>Popular</h3>
-                <p>Listado de peliculas</p>
-                <ul>
-                  {movies.map((movie) => (
-                    <li key={movie.slug}>
-                      <Link href={`/movie/${movie.slug}`}>
-                        {movie.title}
-                      </Link>
-                    </li>
-                  ))}
+                <Typography variant="h5" component="div" gutterBottom sx={{fontWeight: 'bold'}}>
+                  Popular
+                </Typography>
+                {
+                  loadingMovies ? (
+                    <Box sx={{display: 'flex', justifyContent:'center', padding: '3rem'}}>
+                      <CircularProgress />
+                    </Box>
+                  ):(
+                    <ul className={stylePage['movie-list']}>
+                      {moviesPopular?.map((movie) => (
+                        <li key={movie.id} className={stylePage['movie-card']}>
+                          <Link href={`/movie/${movie.id}`}>
+                            <CardMovie movie={movie}/>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )
+                }
+              </Box>
+              <Box component="section">
+                <Typography variant="h5" component="div" gutterBottom sx={{fontWeight: 'bold'}}>
+                  Now PLaying
+                </Typography>
+                {
+                  loadingMovies ? (
+                    <Box sx={{display: 'flex', justifyContent:'center', padding: '3rem'}}>
+                      <CircularProgress />
+                    </Box>
+                  ):(
+                    <ul className={stylePage['movie-list']}>
+                      {moviesNowPlaying?.map((movie) => (
+                        <li key={movie.id} className={stylePage['movie-card']}>
+                          <Link href={`/movie/${movie.id}`}>
+                            <CardMovie movie={movie}/>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )
+                }
+              </Box>
+              <Box component="section">
+                <Typography variant="h5" component="div" gutterBottom sx={{fontWeight: 'bold'}}>
+                  Upcoming
+                </Typography>
+                <ul className={stylePage['movie-list']}>
+                {
+                  loadingMovies ? (
+                    <Box sx={{display: 'flex', justifyContent:'center', padding: '3rem'}}>
+                      <CircularProgress />
+                    </Box>
+                  ):(
+                    <ul className={stylePage['movie-list']}>
+                      {moviesUpcoming?.map((movie) => (
+                        <li key={movie.id} className={stylePage['movie-card']}>
+                          <Link href={`/movie/${movie.id}`}>
+                            <CardMovie movie={movie}/>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )
+                }
                 </ul>
               </Box>
               <Box component="section">
-                <h3>Now Paying</h3>
-                <p>Listado de peliculas</p>
-              </Box>
-              <Box component="section">
-                <h3>Upcoming</h3>
-                <p>Listado de peliculas</p>
-              </Box>
-              <Box component="section">
-                <h3>Top Rated</h3>
-                <p>Listado de peliculas</p>
+                <Typography variant="h5" component="div" gutterBottom sx={{fontWeight: 'bold'}}>
+                  Top Rated
+                </Typography>
+                {
+                  loadingMovies ? (
+                    <Box sx={{display: 'flex', justifyContent:'center', padding: '3rem'}}>
+                      <CircularProgress />
+                    </Box>
+                  ):(
+                    <ul className={stylePage['movie-list']}>
+                      {moviesTopRated?.map((movie) => (
+                        <li key={movie.id} className={stylePage['movie-card']}>
+                          <Link href={`/movie/${movie.id}`}>
+                            <CardMovie movie={movie}/>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )
+                }
               </Box>
               <Box component="section">
                 <h3>Favorites</h3>
                 <p>Listado de peliculas</p>
               </Box>
-            </Box>
+            </Grid>
           </Grid>
         </Box>
-      </Container>
+      </Box>
     </Box>
   );
 }
+
+export default Home;

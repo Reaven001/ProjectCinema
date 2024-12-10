@@ -2,18 +2,25 @@
 import { Gauge, gaugeClasses  } from '@mui/x-charts/Gauge';
 import { Box } from "@mui/material";
 
-export default function RateMovie({rate}){
+interface RateMovieProps { 
+    width: number;
+    height: number;
+    rate: number | undefined; 
+}
+
+const RateMovie: React.FC<RateMovieProps> = ({width, height, rate}) => {
     return(
         <Box>
             <Gauge 
-                width={100} 
-                height={100} 
+                width={width} 
+                height={height} 
                 value={rate} 
-                aria-labelledby="battery_level_label"
-                text={`${rate}%`}
+                aria-labelledby="rate_movie_label"
+                text={`${Math.round(rate)}%`}
                 sx={{
                     [`& text.${gaugeClasses.valueText}`]:  {
-                        color: '#FFFFFF'
+                        color: '#fff',
+                        fontSize: 9,
                       },
                     [`& .${gaugeClasses.valueArc}`]: {
                         fill: 'rgba(77, 161, 79, 1)',
@@ -26,3 +33,5 @@ export default function RateMovie({rate}){
         </Box>
     );
 }
+
+export default RateMovie;

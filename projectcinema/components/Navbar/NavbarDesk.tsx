@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid2';
 
 //Components
-import Logger from "../Logger";
+import Logger from "../Logger/Logger";
 
 export default function NavbarDesk() {
     return (

@@ -1,0 +1,47 @@
+.main-banner{
+    position: relative;
+    width: 100%;
+    height: 436px;
+    overflow: hidden;
+}
+
+.image {
+    width: 100%; 
+    height: auto;
+    position: absolute;
+    z-index: -1;
+}
+
+.content {
+    height: 100%;
+    color: white;
+    background: linear-gradient(#ffffff00 0%, #000000 100%);
+    padding: 1rem;
+}
+
+.container-content{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.container-content img{
+    width: 305px;
+    height: 395px;
+}
+
+.movie-list{
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  .movie-list li{
+    list-style: none;
+    text-decoration: none;
+  }
+  .movie-list a {
+    text-decoration: none;
+  }

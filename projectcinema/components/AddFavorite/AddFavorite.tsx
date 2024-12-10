@@ -5,12 +5,26 @@ import Tooltip from '@mui/material/Tooltip';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
-export default function AddFavorite(){
+interface Movie{
+    id: number;
+    title: string;
+    overview: string;
+    vote_average: number;
+}
+
+interface AddFavoriteProps { 
+    movie: Movie;
+    color: string; 
+}
+
+const AddFavorite: React.FC <AddFavoriteProps> = ({movie, color}) => {
     return (
         <Tooltip title="Add favorite">
-            <IconButton sx={{color: '#fff'}}>
+            <IconButton sx={{color: color}}>
                 <FavoriteBorderIcon />
             </IconButton>
         </Tooltip>
     );
 }
+
+export default AddFavorite;
