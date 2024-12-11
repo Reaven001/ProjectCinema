@@ -121,16 +121,16 @@ export default function Logger(){
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                <div className={loggerStyle['welcome-container']}>
-                    <h1>Welcome to Quickbet Movies!</h1>
-                    <p>Ready to unlock a universe of cinematic delights? Sign up now and start your journey with us!</p>
-                    <div className={loggerStyle['buttons']}>
-                        <button className={loggerStyle['sign-up-btn']}>Sign up</button>
-                        <button className={loggerStyle['log-in-btn']}>Log In</button>
+                    <div className={loggerStyle['welcome-container']}>
+                        <h1>Welcome to Quickbet Movies!</h1>
+                        <p>Ready to unlock a universe of cinematic delights? Sign up now and start your journey with us!</p>
+                        <div className={loggerStyle['buttons']}>
+                            <button className={loggerStyle['sign-up-btn']}>Sign up</button>
+                            <button className={loggerStyle['log-in-btn']}>Log In</button>
+                        </div>
+                        <button className={loggerStyle['email-register-btn']}>Register with your Email</button>
+                        <p className={loggerStyle['support-email']}>For support, contact us at <a href="mailto:support@quickbetdmovies.com">support@quickbetdmovies.com</a></p>
                     </div>
-                    <button className={loggerStyle['email-register-btn']}>Register with your Email</button>
-                    <p className={loggerStyle['support-email']}>For support, contact us at <a href="mailto:support@quickbetdmovies.com">support@quickbetdmovies.com</a></p>
-                </div>
                 </Box>
             </Modal>
         </>        

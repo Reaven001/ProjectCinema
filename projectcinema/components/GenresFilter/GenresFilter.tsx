@@ -34,7 +34,7 @@ export default function BasicSelect() {
             const data = await response.json();
             setOptions(data.genres);
             //console.log(data);
-        } catch (error){
+        } catch{
             setErrorGenres('Error loading genres');
         }
         finally {
@@ -44,6 +44,9 @@ export default function BasicSelect() {
     
     fetchData();
   }, []);
+
+  if (loadingGenres) return <p>Loading...</p>
+  if (errorGenres) return <p>{errorGenres}</p>
 
   return (
     <Box>

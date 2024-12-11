@@ -27,11 +27,8 @@ import {
 } from "@/redux/slices/movies/thunks";
 
 
-interface HomeProps { 
-  movie: string[];
-}
 
-const Home: React.FC<HomeProps> = () => {
+const Home: React.FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() =>{

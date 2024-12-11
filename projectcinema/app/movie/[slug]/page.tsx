@@ -47,7 +47,7 @@ const MoviePage: React.FC<MoviePageProps> = ({params}) => {
                 setUrlPoster(`https://image.tmdb.org/t/p/original${data?.poster_path}`);
                 console.log('movie info',data);
                 console.log(data);
-            } catch (error){
+            } catch{
                 setError('Error loading movie');
             }
             finally {
@@ -71,7 +71,7 @@ const MoviePage: React.FC<MoviePageProps> = ({params}) => {
                 });
                 const data = await response.json();
                 setRecomendMovie(data.results);
-            } catch (error){
+            } catch{
                 setError('Error loading movie');
             }
             finally {

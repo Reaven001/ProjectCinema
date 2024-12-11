@@ -49,7 +49,8 @@ const Banner: React.FC<BannerProps> = () => {
                 setLastMovie(data);
                 setUrlImageBack(`https://image.tmdb.org/t/p/original${data?.backdrop_path}`);
                 console.log(data);
-            } catch (error){
+            } catch{
+                console.log(errorLastMovie);
                 setErrorLastMovie('Error loading movie');
             }
             finally {
