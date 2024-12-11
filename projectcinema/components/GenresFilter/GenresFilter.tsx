@@ -8,11 +8,17 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 import { ACCES_TOKEN } from '@/secret/accesToken';
 
+interface Options {
+    id: number;
+    name: string;
+}
+
+
 export default function BasicSelect() {
   const [errorGenres, setErrorGenres] = useState('');
   const [loadingGenres, setLoadingGenres] = useState(false);
 
-  const [options, setOptions] = useState([]);
+  const [options, setOptions] = useState<Options[] | null>(null);
   const [genre, setGenre] = React.useState('');
 
   const handleChange = (event: SelectChangeEvent) => {

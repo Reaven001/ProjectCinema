@@ -1,8 +1,30 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 
+interface Genre {
+    id: number;
+    name: string;
+}
+
+interface Movie {
+    adult: boolean;
+    backdrop_path: string;
+    genres: Genre[];
+    id: number;
+    original_language: string;
+    original_title: string;
+    overview: string;
+    popularity: number;
+    poster_path: string;
+    release_date: string;
+    title: string;
+    video: boolean;
+    vote_average: number;
+    vote_count: number;
+}
+
 interface SearchState {
-    result: string[];
+    result: Movie[];
     loading: boolean;
     error: string | null;
 }

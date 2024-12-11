@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 
 import { useAppSelector, useAppDispatch } from '@/redux/hooks';
 import { setResults } from '@/redux/slices/resultBusqueda/resultSlice';

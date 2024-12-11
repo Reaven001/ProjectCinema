@@ -21,10 +21,32 @@ interface MoviePageProps {
     params: Promise <{slug: string}>
 }
 
+interface Genre {
+    id: number;
+    name: string;
+}
+
+interface Movie {
+    adult: boolean;
+    backdrop_path: string;
+    genres: Genre[];
+    id: number;
+    original_language: string;
+    original_title: string;
+    overview: string;
+    popularity: number;
+    poster_path: string;
+    release_date: string;
+    title: string;
+    video: boolean;
+    vote_average: number;
+    vote_count: number;
+}
+
 const MoviePage: React.FC<MoviePageProps> = ({params}) => {
     const {slug} = use(params);
-    const [recommendMovie, setRecomendMovie] = useState([]);
-    const [dataMovie, setDataMovie] = useState({});
+    const [recommendMovie, setRecomendMovie] = useState<Movie[] | null>(null);
+    const [dataMovie, setDataMovie] = useState<Movie | null>(null);
     const [urlImageBack, setUrlImageBack] = useState('');
     const [urlPoster, setUrlPoster] = useState('');
     const [error, setError] = useState('');
@@ -88,11 +110,11 @@ const MoviePage: React.FC<MoviePageProps> = ({params}) => {
     return(
         <Box>
             <Box className={pageStyle['main-banner']}>
-                <img src={urlImageBack} alt={dataMovie.title} className={pageStyle.image}/>
+                <img src={urlImageBack} alt={dataMovie?.title} className={pageStyle.image}/>
                 <Box className={pageStyle.content}>
                     <Container className={pageStyle['container-content']}>
                         <Box>
-                            <img src={urlPoster} alt={dataMovie.title}/>
+                            <img src={urlPoster} alt={dataMovie?.title}/>
                         </Box>
                         <Box>
                             <Typography variant="h3" component="div" gutterBottom sx={{fontWeight: 'bold'}}>
@@ -105,13 +127,13 @@ const MoviePage: React.FC<MoviePageProps> = ({params}) => {
                                 {dataMovie?.overview}
                             </Typography>
                             <Box sx={{display: "flex", alignItems: 'center'}}>
-                                <RateMovie rate={dataMovie.vote_average} width={100} height={100}/>
+                                <RateMovie rate={dataMovie?.vote_average ?? 0} width={100} height={100}/>
                                 <Typography variant="h6" component="div" gutterBottom sx={{fontWeight: 'bold'}}>
                                 Users Score
                                 </Typography>
                             </Box>
                             <Box>
-                                {dataMovie.genres?.map((genre) => (
+                                {dataMovie?.genres?.map((genre) => (
                                     <li key={genre.id}>
                                         {genre.name}
                                     </li>

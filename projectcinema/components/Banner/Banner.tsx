@@ -17,19 +17,31 @@ import AddFavorite from "../AddFavorite/AddFavorite";
 
 import CircularProgress from '@mui/material/CircularProgress';
 
-interface Movie{
-    title: string;
+interface Genre {
+    id: number;
+    name: string;
+}
+
+interface Movie {
+    adult: boolean;
+    backdrop_path: string;
+    genres: Genre[];
+    id: number;
+    original_language: string;
+    original_title: string;
     overview: string;
+    popularity: number;
+    poster_path: string;
+    release_date: string;
+    title: string;
+    video: boolean;
     vote_average: number;
+    vote_count: number;
 }
 
-interface BannerProps { 
-    movie: Movie | null | undefined; 
-}
+const Banner: React.FC = () => {
 
-const Banner: React.FC<BannerProps> = () => {
-
-    const [lastMovie, setLastMovie] = useState({});
+    const [lastMovie, setLastMovie] = useState<Movie | null>(null);
     const [errorLastMovie, setErrorLastMovie] = useState('');
     const [loadingLastMovie, setLoadingLastMovie] = useState(false);
     const [urlImageBack, setUrlImageBack] = useState('');
@@ -73,7 +85,7 @@ const Banner: React.FC<BannerProps> = () => {
 
     return(
         <Box className={bannerStyle['main-banner']}>
-            <img src={urlImageBack} alt={lastMovie.title} className={bannerStyle.image}/>
+            <img src={urlImageBack} alt={lastMovie?.title} className={bannerStyle.image}/>
             <Box className={bannerStyle.content}>
                 <Container className={bannerStyle['container-content']}>
                     <Grid container sx={{padding: '1rem'}}>
@@ -87,7 +99,7 @@ const Banner: React.FC<BannerProps> = () => {
                         </Grid>
                         <Grid size={2}  className={bannerStyle.information}>
                             <Box>
-                                <AddFavorite movie={lastMovie}/>
+                                <AddFavorite movie={lastMovie} color="#ffffff"/>
                             </Box>
                             <Box>
                                 <RateMovie rate={lastMovie.vote_average} width={100} height={100}/>

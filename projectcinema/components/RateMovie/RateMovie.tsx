@@ -5,7 +5,7 @@ import { Box } from "@mui/material";
 interface RateMovieProps { 
     width: number;
     height: number;
-    rate: number | undefined; 
+    rate: number; 
 }
 
 const RateMovie: React.FC<RateMovieProps> = ({width, height, rate}) => {

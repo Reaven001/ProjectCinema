@@ -81,8 +81,8 @@ const Home: React.FC = () => {
                         ):(
                           <ul className={stylePage['movie-list']}>
                             {moviesPopular?.map((movie) => (
-                              <li key={movie.id} className={stylePage['movie-card']}>
-                                <Link href={`/movie/${movie.id}`}>
+                              <li key={movie?.id} className={stylePage['movie-card']}>
+                                <Link href={`/movie/${movie?.id}`}>
                                   <CardMovie movie={movie}/>
                                 </Link>
                               </li>

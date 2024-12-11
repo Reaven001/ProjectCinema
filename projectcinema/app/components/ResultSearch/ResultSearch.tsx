@@ -11,6 +11,7 @@ import { useAppSelector } from "@/redux/hooks";
 //Styles
 import resultStyle from './resultStyle.module.css';
 
+
 const ResultSearch: React.FC = () => {
     const resultados = useAppSelector (state => state.searchReducer.result);
 
@@ -19,7 +20,7 @@ const ResultSearch: React.FC = () => {
             <ul  className={resultStyle['movie-list']}>
             {resultados.length > 0 ? (
                 resultados.map((pelicula) => (
-                    <li key={pelicula.title}>
+                    <li key={typeof pelicula === 'object' && 'title' in pelicula ? pelicula.title : undefined}>
                         <Link href={`/movie/${pelicula.id}`}>
                             <CardMovie movie={pelicula}/>
                         </Link>
