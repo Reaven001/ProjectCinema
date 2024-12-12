@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 
+
 //Material UI
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
@@ -12,6 +13,10 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import LoginIcon from '@mui/icons-material/Login';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid2';
+import Typography from '@mui/material/Typography';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import Button from '@mui/material/Button';
 
 //Hooks
 import useModalLogin from '@/hooks/useModalLogin';
@@ -24,7 +29,8 @@ const style = {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 500,
+    width: "90%",
+    height: "90%",
     bgcolor: "background.paper",
     borderRadius: "7px",
     boxShadow: 24,
@@ -38,6 +44,9 @@ const style = {
     maxWidth: "100%",
     maxHeight: "100%",
     overflowY: "auto",
+    padding: 0,
+    display: "flex",
+    justifyContent: 'center',
   };
 
 export default function Logger(){
@@ -76,34 +85,6 @@ export default function Logger(){
                 open={open}
                 onClose={handleClose}
                 onClick={handleClose}
-                slotProps={{
-                  paper: {
-                    elevation: 0,
-                    sx: {
-                      overflow: 'visible',
-                      filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                      mt: 1.5,
-                      '& .MuiAvatar-root': {
-                        width: 32,
-                        height: 32,
-                        ml: -0.5,
-                        mr: 1,
-                      },
-                      '&::before': {
-                        content: '""',
-                        display: 'block',
-                        position: 'absolute',
-                        top: 0,
-                        right: 14,
-                        width: 10,
-                        height: 10,
-                        bgcolor: 'background.paper',
-                        transform: 'translateY(-50%) rotate(45deg)',
-                        zIndex: 0,
-                      },
-                    },
-                  },
-                }}
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
@@ -121,16 +102,44 @@ export default function Logger(){
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <div className={loggerStyle['welcome-container']}>
-                        <h1>Welcome to Quickbet Movies!</h1>
-                        <p>Ready to unlock a universe of cinematic delights? Sign up now and start your journey with us!</p>
-                        <div className={loggerStyle['buttons']}>
-                            <button className={loggerStyle['sign-up-btn']}>Sign up</button>
-                            <button className={loggerStyle['log-in-btn']}>Log In</button>
-                        </div>
-                        <button className={loggerStyle['email-register-btn']}>Register with your Email</button>
-                        <p className={loggerStyle['support-email']}>For support, contact us at <a href="mailto:support@quickbetdmovies.com">support@quickbetdmovies.com</a></p>
-                    </div>
+                    <Grid container className={loggerStyle['login-container']}>
+                        <Grid size={{ xs: 12, md: 6 }} className={loggerStyle['container-left']}>
+                            <Box sx={{
+                                display:'flex',
+                                alignItems: 'center',
+                                paddingLeft: '1rem'
+                            }}>
+                                <Button onClick={handleCloseModal} startIcon=   {<ArrowBackIosIcon />}
+                                    sx={{
+                                        color: '#000000'
+                                    }}
+                                >
+                                    BACK
+                                </Button>
+                            </Box>
+                            <Box className={loggerStyle['buttons']}>
+                                <button className={loggerStyle['sign-up-btn']}>Sign up</button>
+                                <button className={loggerStyle['log-in-btn']}>Log In</button>
+                            </Box>
+                            <Box className={loggerStyle['']}>
+                                <button className={loggerStyle['sign-up-btn']}>Register with your Email</button>
+                            </Box>
+                            <Box className={loggerStyle['']}>
+                                <Typography variant="body1" component="div" gutterBottom>
+                                For any questions, reach out to support@Quickbetdmovies.com
+                                </Typography>
+                            </Box>
+                        </Grid>
+                        <Grid size={{ xs: 12, md: 6 }} className={loggerStyle['container-right']} >
+                            <Typography variant="h3" component="div" gutterBottom sx={{fontWeight: 'bold'}}>
+                                Welcome to Quickbet Movies!
+                            </Typography>
+                            <Typography variant="body1" component="div" gutterBottom sx={{fontWeight: 'bold'}}>
+                                Ready to unlock a universe of cinematic delights? Sign up now and start your journey with us!
+                            </Typography>
+                            <img src="/imagelog1.png" alt="image-login" />
+                        </Grid>
+                    </Grid>
                 </Box>
             </Modal>
         </>        

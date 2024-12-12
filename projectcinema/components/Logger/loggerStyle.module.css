@@ -1,17 +1,44 @@
 /* Contenedor Principal */
-.welcome-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
+.login-container {
+    padding: 1rem;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-right{
+    background: #1C1C1C;
+    color: #ffffff;
     text-align: center;
-    background: #f9f9f9;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    color: #333;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4rem 1rem 0 1rem;
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+}
+
+.container-right img{
+    width: 60%;
+    height: 60%;
+}
+
+.container-left{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    text-align: center;
 }
 
 /* Encabezado */
-.welcome-container h1 {
+.login-container h1 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
     color: #333;
