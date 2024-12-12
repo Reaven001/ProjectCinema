@@ -1,14 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface Genre {
-    id: number;
-    name: string;
-}
-
 interface Movie {
     adult: boolean;
     backdrop_path: string;
-    genres: Genre[];
+    genre_ids: number[];
     id: number;
     original_language: string;
     original_title: string;

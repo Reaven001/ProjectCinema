@@ -3,18 +3,28 @@ import {useEffect, useState} from 'react'
 import { useAppSelector, useAppDispatch } from '@/redux/hooks';
 import { setResults } from '@/redux/slices/resultBusqueda/resultSlice';
 
-type Pelicula = {
+interface Movie {
+    adult: boolean;
+    backdrop_path: string;
+    genre_ids: number[];
     id: number;
+    original_language: string;
+    original_title: string;
+    overview: string;
+    popularity: number;
+    poster_path: string;
+    release_date: string;
     title: string;
-    genre_ids: string[];
-    release_date: number;
-};
+    video: boolean;
+    vote_average: number;
+    vote_count: number;
+}
 
 function useSearchMovie() {
     const dispatch = useAppDispatch();
 
     const [busqueda, setBusqueda] = useState('');
-    const [resultados, setResultados] = useState<Pelicula[]>([]);
+    //const [resultados, setResultados] = useState<Pelicula[]>([]);
 
     const moviesPopular = useAppSelector(state => state.moviesReducer.moviesPopular);
     const moviesNowPlaying = useAppSelector(state => state.moviesReducer.moviesNowPlaying);
@@ -22,21 +32,20 @@ function useSearchMovie() {
     const moviesTopRated = useAppSelector(state => state.moviesReducer.moviesTopRated);
 
     const allMovies = [...new Set([...moviesPopular, ...moviesNowPlaying, ...moviesUpcoming, ...moviesTopRated])];
+    
 
     const buscarPelicula = () => {
-        const filtrados = allMovies.filter((pelicula) =>
-        pelicula.title.toLowerCase().includes(busqueda.toLowerCase())
-        );
-        //console.log(filtrados);
-        setResultados(filtrados);
+        //console.log(allMovies);
+        const lowerCaseName = busqueda.toLowerCase();
+
+        const filtrados = allMovies.filter(movie => movie.title.toLowerCase().includes(lowerCaseName));
+        console.log(filtrados);
+        //setResultados(filtrados);
         dispatch(setResults(filtrados));
     };
 
-    useEffect(() => {
-    }, []);
-
     return {
-        resultados,
+        //resultados,
         busqueda,
         setBusqueda,
         buscarPelicula,

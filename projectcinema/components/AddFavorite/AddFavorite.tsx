@@ -5,15 +5,11 @@ import Tooltip from '@mui/material/Tooltip';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 //import FavoriteIcon from '@mui/icons-material/Favorite';
 
-interface Genre {
-    id: number;
-    name: string;
-}
 
 interface Movie {
     adult: boolean;
     backdrop_path: string;
-    genres: Genre[];
+    genre_ids: number[];
     id: number;
     original_language: string;
     original_title: string;

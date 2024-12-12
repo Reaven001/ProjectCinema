@@ -29,6 +29,23 @@ interface Genre {
 interface Movie {
     adult: boolean;
     backdrop_path: string;
+    genre_ids: number[];
+    id: number;
+    original_language: string;
+    original_title: string;
+    overview: string;
+    popularity: number;
+    poster_path: string;
+    release_date: string;
+    title: string;
+    video: boolean;
+    vote_average: number;
+    vote_count: number;
+}
+
+interface DataMovie {
+    adult: boolean;
+    backdrop_path: string;
     genres: Genre[];
     id: number;
     original_language: string;
@@ -46,7 +63,7 @@ interface Movie {
 const MoviePage: React.FC<MoviePageProps> = ({params}) => {
     const {slug} = use(params);
     const [recommendMovie, setRecomendMovie] = useState<Movie[] | null>(null);
-    const [dataMovie, setDataMovie] = useState<Movie | null>(null);
+    const [dataMovie, setDataMovie] = useState<DataMovie | null>(null);
     const [urlImageBack, setUrlImageBack] = useState('');
     const [urlPoster, setUrlPoster] = useState('');
     const [error, setError] = useState('');

@@ -1,15 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-
-interface Genre {
-    id: number;
-    name: string;
-}
-
 interface Movie {
     adult: boolean;
     backdrop_path: string;
-    genres: Genre[];
+    genre_ids: number[];
     id: number;
     original_language: string;
     original_title: string;
@@ -39,7 +33,7 @@ export const searchSlice = createSlice({
     name: "search",
     initialState,
     reducers: {
-        setResults:(state, action: PayloadAction<[]>)=>{
+        setResults:(state, action: PayloadAction<Movie[]>)=>{
             state.result = action.payload;
         },
         setLoading(state, action: PayloadAction<boolean>) {

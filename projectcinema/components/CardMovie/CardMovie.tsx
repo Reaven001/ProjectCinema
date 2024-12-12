@@ -11,15 +11,10 @@ import Typography from '@mui/material/Typography';
 import RateMovie from '../RateMovie/RateMovie';
 import AddFavorite from '../AddFavorite/AddFavorite';
 
-interface Genre {
-    id: number;
-    name: string;
-}
-
 interface Movie {
     adult: boolean;
     backdrop_path: string;
-    genres: Genre[];
+    genre_ids: number[];
     id: number;
     original_language: string;
     original_title: string;

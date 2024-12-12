@@ -7,7 +7,6 @@ import {
     setMoviesNowPlaying, 
     setMoviesUpcoming, 
     setMoviesTopRated,
-    setMoviesFavorites, 
     setLoading, 
     setError, 
 } from "./moviesSlice";
@@ -24,7 +23,7 @@ export const fetchMoviesPopular = () => async (dispatch: AppDispatch) => {
         });
         const data = await response.json();
         dispatch(setMoviesPopular(data.results));
-    } catch (error) {
+    } catch {
         dispatch(setError("Error fetching popular movies"));
     } finally {
         dispatch(setLoading(false));
@@ -43,7 +42,7 @@ export const fetchMoviesNowPlaying = () => async (dispatch: AppDispatch) => {
         });
         const data = await response.json();
         dispatch(setMoviesNowPlaying(data.results));
-    } catch (error) {
+    } catch {
         dispatch(setError("Error fetching popular movies"));
     } finally {
         dispatch(setLoading(false));
@@ -62,7 +61,7 @@ export const fetchMoviesUpcoming = () => async (dispatch: AppDispatch) => {
         });
         const data = await response.json();
         dispatch(setMoviesUpcoming(data.results));
-    } catch (error) {
+    } catch {
         dispatch(setError("Error fetching popular movies"));
     } finally {
         dispatch(setLoading(false));
@@ -81,7 +80,7 @@ export const fetchMoviesTopRated = () => async (dispatch: AppDispatch) => {
         });
         const data = await response.json();
         dispatch(setMoviesTopRated(data.results));
-    } catch (error) {
+    } catch {
         dispatch(setError("Error fetching popular movies"));
     } finally {
         dispatch(setLoading(false));
